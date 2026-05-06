@@ -2,7 +2,6 @@ package com.taskify.entities;
 
 import com.taskify.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Builder
 @Table(name = "Users")
 public class User implements UserDetails {
     @Id
