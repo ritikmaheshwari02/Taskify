@@ -1,5 +1,6 @@
 package com.taskify.entities;
 
+import com.taskify.dto.UserDto;
 import com.taskify.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -55,5 +56,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDto getUserDto() {
+        return UserDto.builder()
+                      .id(id)  //.id(this.id)     "this" refers to createdUser and so on like this
+                      .name(name)
+                      .email(email)
+                      .userRole(userRole)
+                      .build();
     }
 }

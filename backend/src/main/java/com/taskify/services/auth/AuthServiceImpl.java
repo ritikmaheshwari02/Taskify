@@ -1,5 +1,7 @@
 package com.taskify.services.auth;
 
+import com.taskify.dto.SignUpRequest;
+import com.taskify.dto.UserDto;
 import com.taskify.entities.User;
 import com.taskify.enums.UserRole;
 import com.taskify.repository.UserRepo;
@@ -30,5 +32,24 @@ public class AuthServiceImpl implements AuthService {
         } else {
             System.out.println("Admin account already exist");
         }
+    }
+
+    @Override
+    public UserDto signUpUser(SignUpRequest signUpRequest) {
+        User user = new User();
+        user.setName(signUpRequest.getName());
+        user.setEmail(signUpRequest.getEmail());
+        user.setPassword(new BCryptPasswordEncoder(12).encode(signUpRequest.getPassword()));
+        user.setUserRole(UserRole.EMPLOYEE);
+
+        User createdUser = userRepo.save(user);
+
+        return createdUser.getUserDto();
+    }
+
+    @Override
+    public boolean hasUserWithEmail(String email) {
+        return userRepo.findFirstByEmail(email)
+                       .isPresent();
     }
 }
