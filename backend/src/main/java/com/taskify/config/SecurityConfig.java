@@ -38,7 +38,9 @@ public class SecurityConfig {
                     .requestMatchers("/api/admin/**")
                     .hasAnyAuthority(UserRole.ADMIN.name())
                     .requestMatchers("/api/employee/**")
-                    .hasAnyRole(UserRole.EMPLOYEE.name())
+                    .hasAnyAuthority(UserRole.EMPLOYEE.name())
+                    .requestMatchers("/error")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
             .sessionManagement(session -> session
